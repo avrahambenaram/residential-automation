@@ -10,9 +10,16 @@ class GasSensor(Subject):
 
         self.threshold = threshold
         self.level = 0
+        self.alert_active = False
 
     def check(self):
         self.level = self.adc.read()
 
         if self.level > self.threshold:
-            self.notify("gas_alert", self.level)
+            if not self.alert_active:
+                self.alert_active = True
+                self.notify("gas_alert", self.level)
+        else:
+            if self.alert_active:
+                self.alert_active = False
+                self.notify("gas_normal", self.level)

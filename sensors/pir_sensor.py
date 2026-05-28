@@ -16,7 +16,8 @@ class PIRSensor(Subject):
         if current == 1 and self.last_state == 0:
             self.motion_detected = True
             self.notify("motion_detected")
-        elif current == 0:
+        elif current == 0 and self.last_state == 1:
             self.motion_detected = False
+            self.notify("motion_clear")
 
         self.last_state = current

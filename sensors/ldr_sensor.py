@@ -6,4 +6,4 @@ class LDRSensor:
         self.adc.atten(ADC.ATTN_11DB)
 
     def read(self):
-        return self.adc.read()
+        return 4095 - self.adc.read()

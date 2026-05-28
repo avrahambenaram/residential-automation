@@ -37,7 +37,7 @@ state = SystemState()
 
 # Observers
 climate = ClimateObserver(buzzer)
-lighting = LightingObserver(led)
+lighting = LightingObserver(led, ldr)
 gas_observer = GasObserver(buzzer, servo)
 ventilation = VentilationObserver(relay)
 oled_observer = OLEDObserver(oled)

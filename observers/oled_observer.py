@@ -10,5 +10,7 @@ class OLEDObserver(Observer):
             self.oled.alert("TEMP ALTA")
         elif event == "gas_alert":
             self.oled.alert("GAS DETECTADO")
+        elif event == "gas_normal":
+            self.oled.alert("GAS NORMAL")
         elif event == "motion_detected":
             self.oled.alert("MOVIMENTO")
