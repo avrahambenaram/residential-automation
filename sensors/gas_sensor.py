@@ -1,5 +1,5 @@
 from machine import ADC, Pin
-from observer import Subject
+from core.observer import Subject
 
 class GasSensor(Subject):
     def __init__(self, pin, threshold=2000):

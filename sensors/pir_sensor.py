@@ -1,5 +1,5 @@
 from machine import Pin
-from observer import Subject
+from core.observer import Subject
 
 class PIRSensor(Subject):
     def __init__(self, pin):

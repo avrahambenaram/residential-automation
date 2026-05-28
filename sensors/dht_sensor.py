@@ -1,7 +1,7 @@
 from machine import Pin
 import dht
 
-from observer import Subject
+from core.observer import Subject
 
 
 class DHTSensor(Subject):
@@ -29,13 +29,11 @@ class DHTSensor(Subject):
         temp = self.sensor.temperature()
         hum = self.sensor.humidity()
 
-        # Evento genérico de leitura
         self.notify("dht_read", {
             "temperature": temp,
             "humidity": hum
         })
 
-        # Temperatura alta
         if temp > self.temp_threshold:
             if not self.high_temp_triggered:
                 self.notify("temperature_high", temp)
@@ -48,10 +46,8 @@ class DHTSensor(Subject):
 
                 self.high_temp_triggered = False
 
-        # Umidade baixa
         if hum < self.humidity_low:
             self.notify("humidity_low", hum)
 
-        # Umidade alta
         if hum > self.humidity_high:
             self.notify("humidity_high", hum)

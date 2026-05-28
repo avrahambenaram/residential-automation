@@ -1,21 +1,21 @@
 from time import sleep
 
-from dht_sensor import DHTSensor
-from pir_sensor import PIRSensor
-from gas_sensor import GasSensor
+from sensors.dht_sensor import DHTSensor
+from sensors.pir_sensor import PIRSensor
+from sensors.gas_sensor import GasSensor
 
-from climate_observer import ClimateObserver
-from gas_observer import GasObserver
-from lighting_observer import LightingObserver
-from ventilation_observer import VentilationObserver
+from observers.climate_observer import ClimateObserver
+from observers.gas_observer import GasObserver
+from observers.lighting_observer import LightingObserver
+from observers.ventilation_observer import VentilationObserver
 
-from leds import LED
-from buzzer import Buzzer
-from servo import Servo
-from relay import Relay
+from actuators.leds import LED
+from actuators.buzzer import Buzzer
+from actuators.servo import Servo
+from actuators.relay import Relay
 
 
-# Atuadores
+# Actors
 led = LED(26)
 
 buzzer = Buzzer(25)
@@ -24,7 +24,7 @@ servo = Servo(33)
 
 relay = Relay(32)
 
-# Sensores
+# Sensors
 dht = DHTSensor(15)
 
 pir = PIRSensor(13)
@@ -43,7 +43,7 @@ gas_observer = GasObserver(
 
 ventilation = VentilationObserver(relay)
 
-# Registro
+# Attach observers
 dht.attach(climate)
 
 pir.attach(lighting)
@@ -55,9 +55,7 @@ dht.attach(ventilation)
 
 gas.attach(ventilation)
 
-# Loop
 while True:
-    print("Rodando")
     dht.check()
 
     pir.check()
