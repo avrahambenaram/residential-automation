@@ -22,32 +22,31 @@ class DHTSensor(Subject):
         self.humidity_high = humidity_high
 
         self.high_temp_triggered = False
+        self.temperature = 0
+        self.humidity = 0
 
     def check(self):
         self.sensor.measure()
 
-        temp = self.sensor.temperature()
-        hum = self.sensor.humidity()
+        self.temperature = self.sensor.temperature()
+        self.humidity = self.sensor.humidity()
 
         self.notify("dht_read", {
-            "temperature": temp,
-            "humidity": hum
+            "temperature": self.temperature,
+            "humidity": self.humidity
         })
 
-        if temp > self.temp_threshold:
+        if self.temperature > self.temp_threshold:
             if not self.high_temp_triggered:
-                self.notify("temperature_high", temp)
-
+                self.notify("temperature_high", self.temperature)
                 self.high_temp_triggered = True
-
         else:
             if self.high_temp_triggered:
-                self.notify("temperature_normal", temp)
-
+                self.notify("temperature_normal", self.temperature)
                 self.high_temp_triggered = False
 
-        if hum < self.humidity_low:
-            self.notify("humidity_low", hum)
+        if self.humidity < self.humidity_low:
+            self.notify("humidity_low", self.humidity)
 
-        if hum > self.humidity_high:
-            self.notify("humidity_high", hum)
+        if self.humidity > self.humidity_high:
+            self.notify("humidity_high", self.humidity)

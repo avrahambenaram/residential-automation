@@ -9,9 +9,10 @@ class GasSensor(Subject):
         self.adc.atten(ADC.ATTN_11DB)
 
         self.threshold = threshold
+        self.level = 0
 
     def check(self):
-        value = self.adc.read()
+        self.level = self.adc.read()
 
-        if value > self.threshold:
-            self.notify("gas_alert", value)
+        if self.level > self.threshold:
+            self.notify("gas_alert", self.level)
